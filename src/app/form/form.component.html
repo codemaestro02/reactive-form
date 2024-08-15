@@ -1,0 +1,67 @@
+<div class="ui container">
+  <h1>Component Interaction</h1>
+  <form [formGroup]="form" class="ui form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label>First Name</label>
+      <input type="text" formControlName="firstName" placeholder="First Name">
+      <div *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="ui pointing red basic label">
+        First Name is required.
+      </div>
+    </div>
+    <div class="field">
+      <label>Last Name</label>
+      <input type="text" formControlName="lastName" placeholder="Last Name">
+      <div *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched" class="ui pointing red basic label">
+        Last Name is required.
+      </div>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="Email">
+      <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="ui pointing red basic label">
+        <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
+        <div *ngIf="form.get('email')?.errors?.['email']">Invalid email format.</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="Password">
+      <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="ui pointing red basic label">
+        <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
+        <div *ngIf="form.get('password')?.errors?.['pattern']">Password must be at least 8 characters long, contain at
+          least 1 uppercase letter and 1 special character.
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" formControlName="phone" placeholder="Phone Number">
+    </div>
+    <div class="field">
+      <label>Country</label>
+      <select class="ui dropdown" formControlName="country">
+        <option value="">Select Country</option>
+        <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Occupation</label>
+      <select class="ui dropdown" formControlName="occupation">
+        <option value="">Select Occupation</option>
+        <option *ngFor="let occupation of occupations" [value]="occupation">{{ occupation }}</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Successful</label>
+      <div class="ui radio checkbox">
+        <input type="radio" formControlName="successful" value="true">
+        <label>True</label>
+      </div>
+      <div class="ui radio checkbox">
+        <input type="radio" formControlName="successful" value="false">
+        <label>False</label>
+      </div>
+    </div>
+    <button class="ui button primary" type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
+</div>
